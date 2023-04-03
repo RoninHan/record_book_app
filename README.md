@@ -15,3 +15,10 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 # record_book_app
+
+# initializing
+`` flutter package get ``
+`` flutter pub get ``
+
+# mobx
+`` flutter packages pub run build_runner watch ``
