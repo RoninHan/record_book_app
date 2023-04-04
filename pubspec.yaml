@@ -38,6 +38,7 @@ dependencies:
   mobx: ^2.1.4
   flutter_mobx: ^2.0.6+5
   flutter_dotenv: ^5.0.2
+  fl_chart: ^0.61.0
 
 dev_dependencies:
   flutter_test:
