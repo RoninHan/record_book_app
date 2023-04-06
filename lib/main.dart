@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:record_book_app/pages/asset/index.dart';
 import 'package:record_book_app/pages/home/index.dart';
+import 'package:record_book_app/pages/home/make-note.dart';
 import 'package:record_book_app/pages/report/index.dart';
 
 import 'pages/my/index.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: {
+        '/make-note': (context)=>const MakeNote()
+      }
     );
   }
 }
