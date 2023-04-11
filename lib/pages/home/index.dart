@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  void onGoMakeNote(context){
+  void onGoMakeNote(context) {
     Navigator.pushNamed(context, "/make-note");
   }
 
@@ -16,10 +16,10 @@ class HomePage extends StatelessWidget {
         ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.add,color: Colors.black),
+            icon: const Icon(Icons.add, color: Colors.black),
             onPressed: () {
               onGoMakeNote(context);
-              },
+            },
           ),
         ],
         backgroundColor: Colors.white,
@@ -27,13 +27,13 @@ class HomePage extends StatelessWidget {
         centerTitle: false,
       ),
       body: ListView(
-        children: const [
+        children: [
           Padding(
             padding:
-                EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: const [
                 Text(
                   '今日',
                   style: TextStyle(
@@ -50,8 +50,8 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-           Divider(),
-           ListTile(
+          Divider(),
+          ListTile(
             leading: Icon(Icons.arrow_upward, color: Colors.green),
             title: Text('工资'),
             subtitle: Text('2022-04-01'),
@@ -63,8 +63,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-           Divider(),
-           ListTile(
+          Divider(),
+          ListTile(
             leading: Icon(Icons.arrow_downward, color: Colors.red),
             title: Text('购物'),
             subtitle: Text('2022-03-29'),
@@ -76,8 +76,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-           Divider(),
-           ListTile(
+          Divider(),
+          ListTile(
             leading: Icon(Icons.arrow_downward, color: Colors.red),
             title: Text('外卖'),
             subtitle: Text('2022-03-28'),
@@ -89,8 +89,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-           Divider(),
-           ListTile(
+          Divider(),
+          ListTile(
             leading: Icon(Icons.arrow_downward, color: Colors.red),
             title: Text('水电费'),
             subtitle: Text('2022-03-28'),
