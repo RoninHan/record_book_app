@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:record_book_app/pages/home/income.dart';
+
+import 'expenditure.dart';
 
 class MakeNote extends StatefulWidget {
   const MakeNote({super.key});
@@ -7,14 +10,25 @@ class MakeNote extends StatefulWidget {
   createState() => _MakeNoteState();
 }
 
-class _MakeNoteState extends State<MakeNote> {
-  String menoyType = "餐饮";
+class _MakeNoteState extends State<MakeNote>
+    with SingleTickerProviderStateMixin {
+  static const List<Tab> myTabs = <Tab>[
+    Tab(text: '支出'),
+    Tab(text: '收入'),
+  ];
 
-  final TextEditingController _menoyController = TextEditingController();
+  late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(vsync: this, length: myTabs.length);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -35,177 +49,15 @@ class _MakeNoteState extends State<MakeNote> {
           }),
           backgroundColor: Colors.white,
           titleTextStyle: const TextStyle(color: Colors.black),
+          bottom: TabBar(
+            controller: _tabController,
+            tabs: myTabs,
+            labelColor: Colors.black,
+          ),
         ),
-        body: Column(
-          children: <Widget>[
-            Container(
-              color: Colors.amber,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: TextField(
-                  autofocus: true,
-                  keyboardType: TextInputType.number,
-                  controller: _menoyController,
-                  textAlign: TextAlign.right,
-                  decoration: InputDecoration(
-                      prefix: Text(menoyType),
-                      border: InputBorder.none,
-                      hintText: "0.00"),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 16),
-              child: GridView(
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4, //横轴三个子widget
-                    childAspectRatio: 1.6 //宽高比为1时，子widget
-                    ),
-                children: <Widget>[
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        menoyType = "餐饮";
-                      });
-                    },
-                    child: Column(
-                      children: const [
-                        Icon(
-                          Icons.local_dining,
-                          color: Colors.orange,
-                        ),
-                        Text(
-                          "餐饮",
-                          style: TextStyle(color: Colors.orange),
-                        )
-                      ],
-                    ),
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        setState(() {
-                          menoyType = "零食";
-                        });
-                      },
-                      child: Column(
-                        children: const [
-                          Icon(
-                            Icons.fastfood,
-                            color: Colors.purple,
-                          ),
-                          Text(
-                            "零食",
-                            style: TextStyle(color: Colors.purple),
-                          )
-                        ],
-                      )),
-                  TextButton(
-                      onPressed: () {
-                        setState(() {
-                          menoyType = "烟酒饮料";
-                        });
-                      },
-                      child: Column(
-                        children: const [
-                          Icon(
-                            Icons.local_drink,
-                            color: Colors.blue,
-                          ),
-                          Text(
-                            "烟酒饮料",
-                            style: TextStyle(color: Colors.blue),
-                          )
-                        ],
-                      )),
-                  TextButton(
-                      onPressed: () {
-                        setState(() {
-                          menoyType = "购物";
-                        });
-                      },
-                      child: Column(
-                        children: const [
-                          Icon(Icons.shopping_cart, color: Colors.redAccent),
-                          Text(
-                            "购物",
-                            style: TextStyle(color: Colors.redAccent),
-                          )
-                        ],
-                      )),
-                  TextButton(
-                      onPressed: () {
-                        setState(() {
-                          menoyType = "交通";
-                        });
-                      },
-                      child: Column(
-                        children: const [
-                          Icon(
-                            Icons.directions_bus,
-                            color: Colors.greenAccent,
-                          ),
-                          Text(
-                            "交通",
-                            style: TextStyle(color: Colors.greenAccent),
-                          )
-                        ],
-                      )),
-                  TextButton(
-                      onPressed: () {
-                        setState(() {
-                          menoyType = "话费";
-                        });
-                      },
-                      child: Column(
-                        children: const [
-                          Icon(Icons.phone_android,
-                              color: Color.fromRGBO(2, 88, 161, 1.0)),
-                          Text(
-                            "话费",
-                            style: TextStyle(
-                                color: Color.fromRGBO(2, 88, 161, 1.0)),
-                          )
-                        ],
-                      )),
-                  TextButton(
-                      onPressed: () {
-                        setState(() {
-                          menoyType = "居住";
-                        });
-                      },
-                      child: Column(
-                        children: const [
-                          Icon(Icons.home_outlined,
-                              color: Color.fromRGBO(231, 140, 104, 1.0)),
-                          Text(
-                            "居住",
-                            style: TextStyle(
-                                color: Color.fromRGBO(231, 140, 104, 1.0)),
-                          )
-                        ],
-                      )),
-                  TextButton(
-                      onPressed: () {
-                        setState(() {
-                          menoyType = "水电";
-                        });
-                      },
-                      child: Column(
-                        children: const [
-                          Icon(Icons.energy_savings_leaf_outlined,
-                              color: Color.fromRGBO(143, 86, 63, 1.0)),
-                          Text(
-                            "水电",
-                            style: TextStyle(
-                                color: Color.fromRGBO(143, 86, 63, 1.0)),
-                          )
-                        ],
-                      )),
-                ],
-              ),
-            )
-          ],
+        body: TabBarView(
+          controller: _tabController,
+          children: const [Expenditure(), Income()],
         ));
   }
 }
