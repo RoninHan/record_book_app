@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:record_book_app/pages/asset/index.dart';
 import 'package:record_book_app/pages/home/index.dart';
 import 'package:record_book_app/pages/home/make-note.dart';
+import 'package:record_book_app/pages/login/index.dart';
 import 'package:record_book_app/pages/report/index.dart';
+import 'package:record_book_app/utils/token.dart';
 
 import 'pages/my/index.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  await dotenv.load();
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -21,8 +26,27 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const MyHomePage(title: 'Flutter Demo Home Page'),
-        routes: {'/make-note': (context) => const MakeNote()});
+        // ignore: unnecessary_null_comparison
+        home: FutureBuilder(
+          future: loadToken(),
+          builder: (context, snapshot) {
+            // 检查获取 token 的结果
+            final hasToken = snapshot.hasData && snapshot.data != null;
+
+            // 根据用户登录状态返回不同的页面
+            if (hasToken) {
+              return MyHomePage(title: 'Flutter Demo Home Page');
+            } else {
+              return LoginPage();
+            }
+          },
+        ),
+        routes: {
+          '/home': (context) => const MyHomePage(
+                title: 'Flutter Demo Home Page',
+              ),
+          '/make-note': (context) => const MakeNote(),
+        });
   }
 }
 
@@ -50,6 +74,13 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    debugPrint("1");
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
