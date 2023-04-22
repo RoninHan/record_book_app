@@ -14,12 +14,9 @@ Future<String?> loadToken() async {
 
   // 如果 token 存在，则返回 token；否则返回 null
   if (token != null && token.isNotEmpty) {
-    debugPrint("token");
     return token;
-  } else {
-    debugPrint("null");
-    return null;
   }
+  return null;
 }
 
 // Remove token from local storage

@@ -1,6 +1,7 @@
-import 'dart:convert';
+// import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:record_book_app/mobx/user/userStore.dart';
 import 'package:record_book_app/utils/request.dart';
 import 'package:record_book_app/utils/utils.dart';
 
@@ -15,6 +16,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+
   String _email = '';
   String _password = '';
 
@@ -74,9 +76,10 @@ class _LoginPageState extends State<LoginPage> {
                     Map<String, dynamic> result =
                         await HttpService.post("/v1/user/login", payload);
                     final String token = result["data"]["token"];
+                    final Map<String, dynamic> user = result["data"]["user"];
 
                     saveToken(token);
-
+                    userStore.setUser(user);
                     Navigator.pushNamed(context, "/home");
                   }
                 },

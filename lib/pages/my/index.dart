@@ -1,55 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:record_book_app/mobx/user/userStore.dart';
+import 'package:record_book_app/utils/token.dart';
 
-class MyPage extends StatelessWidget {
+class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
 
   @override
+  _MyPageState createState() => _MyPageState();
+}
+
+class _MyPageState extends State<MyPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: const Text('我的'),
+        backgroundColor: Colors.white,
+        titleTextStyle: const TextStyle(color: Colors.black),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
             padding: const EdgeInsets.all(20.0),
-            color: Theme.of(context).primaryColor,
+            color: Colors.white,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const CircleAvatar(
-                  radius: 30.0,
-                  backgroundImage:
-                      NetworkImage('https://picsum.photos/seed/picsum/200/300'),
+                GestureDetector(
+                  child: CircleAvatar(
+                    radius: 30.0,
+                    backgroundImage: NetworkImage(
+                        'https://picsum.photos/seed/picsum/200/300'),
+                  ),
+                  onTap: () {
+                    debugPrint(userStore.user.toString());
+                    // removeToken();
+                    Navigator.pushNamed(context, "/");
+                  },
                 ),
                 const SizedBox(width: 20.0),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      '用户名',
+                      userStore.user["UserName"] ?? "",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 24.0,
                       ),
                     ),
                     SizedBox(height: 5.0),
                     Text(
-                      '邮箱地址',
+                      userStore.user["email"] ?? "",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 16.0,
                       ),
                     ),
                   ],
                 ),
                 const Spacer(),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('编辑资料'),
-                ),
+                // ElevatedButton(
+                //   onPressed: () {},
+                //   child: const Text('编辑资料'),
+                // ),
               ],
             ),
           ),
@@ -76,6 +99,8 @@ class MyPage extends StatelessWidget {
             leading: const Icon(Icons.logout),
             title: const Text('退出登录'),
             onTap: () {
+              removeToken();
+              Navigator.pushNamed(context, "/login");
               // Log out user and navigate to login page
             },
           ),

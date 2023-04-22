@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
           },
         ),
         routes: {
+          '/login': (context) => const LoginPage(),
           '/home': (context) => const MyHomePage(
                 title: 'Flutter Demo Home Page',
               ),
