@@ -41,6 +41,8 @@ dependencies:
   fl_chart: ^0.61.0
   shared_preferences: ^2.1.0
   crypto: ^3.0.2
+  material_design_icons_flutter: ^6.0.7096
+  font_awesome_flutter: ^10.4.0
 
 dev_dependencies:
   flutter_test:
