@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:record_book_app/api/categories.dart';
+import 'package:record_book_app/api/records.dart';
 import 'package:record_book_app/widgets/button-grid.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -13,43 +15,37 @@ class Expenditure extends StatefulWidget {
 }
 
 class _ExpenditureState extends State<Expenditure> {
-  String menoyType = "餐饮";
-  Color bgColor = Colors.amber;
+  String menoyType = "";
+  Color? bgColor;
+  String categoryId = "";
+  List<GridItem> gridItem = [];
 
-  static List<GridItem> gridItem = [
-    GridItem(
-        menoyType: "餐饮",
-        color: Utils.getColorFromString(""),
-        icon: IconData(0xf858,
-            fontFamily: 'FontAwesomeSolid',
-            fontPackage: 'font_awesome_flutter')),
-    // GridItem(
-    //     menoyType: "零食",
-    //     color: Color.fromARGB(255, 215, 85, 238),
-    //     icon: IconData(0xf858, fontFamily: 'FontAwesomeSolid', fontPackage: 'font_awesome_flutter')),
-    // GridItem(
-    //     menoyType: "烟酒饮料",
-    //     color: Color.fromARGB(255, 62, 161, 243),
-    //     icon: Icons.local_drink),
-    // GridItem(
-    //     menoyType: "购物",
-    //     color: Color.fromARGB(255, 246, 92, 92),
-    //     icon: Icons.shopping_cart),
-    // GridItem(
-    //     menoyType: "交通", color: Colors.greenAccent, icon: Icons.directions_bus),
-    // GridItem(
-    //     menoyType: "话费",
-    //     color: Color.fromARGB(255, 46, 153, 247),
-    //     icon: Icons.phone_android),
-    // GridItem(
-    //     menoyType: "居住",
-    //     color: const Color.fromRGBO(231, 140, 104, 1.0),
-    //     icon: Icons.home_outlined),
-    // GridItem(
-    //     menoyType: "水电",
-    //     color: Color.fromARGB(255, 220, 132, 97),
-    //     icon: Icons.energy_savings_leaf_outlined),
-  ];
+  @override
+  initState() {
+    // TODO: implement initState
+    CategoriesApi().getCategories({"Type": "expenditure"}).then((value) {
+      var gridItems = value.map<GridItem>((item) {
+        var hexIcon =
+            item["icon"].toString().toLowerCase().replaceAll("0x", "");
+        int icon16 = int.parse(hexIcon, radix: 16);
+        return GridItem(
+            id: item["id"],
+            menoyType: item["name"],
+            color: Utils.getColorFromString(item["color"]),
+            icon: IconData(icon16,
+                fontFamily: 'FontAwesomeSolid',
+                fontPackage: 'font_awesome_flutter'));
+      }).toList();
+      setState(() {
+        gridItem = gridItems;
+        menoyType = value[0]["name"].toString();
+        bgColor = Utils.getColorFromString(value[0]["color"]);
+        categoryId = value[0]["id"].toString();
+      });
+    });
+
+    super.initState();
+  }
 
   final TextEditingController _menoyController = TextEditingController();
 
@@ -57,7 +53,18 @@ class _ExpenditureState extends State<Expenditure> {
     setState(() {
       menoyType = item.menoyType;
       bgColor = item.color;
+      categoryId = item.id;
     });
+  }
+
+  void onSubmit(val) {
+    Map<String, dynamic> map = new Map<String, dynamic>();
+    map["amount"] = double.parse(val).toStringAsFixed(2);
+    map["category_id"] = categoryId;
+    map["description"] = menoyType;
+    RecordApi()
+        .createRecord(map)
+        .then((value) => Navigator.pushNamed(context, "/home"));
   }
 
   @override
@@ -68,7 +75,7 @@ class _ExpenditureState extends State<Expenditure> {
           color: bgColor,
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: TextField(
+            child: TextFormField(
               autofocus: true,
               keyboardType: TextInputType.number,
               controller: _menoyController,
@@ -82,6 +89,9 @@ class _ExpenditureState extends State<Expenditure> {
                       const BoxConstraints(minWidth: 0, minHeight: 0),
                   border: InputBorder.none,
                   hintText: "0.00"),
+              onFieldSubmitted: (value) {
+                onSubmit(value);
+              },
             ),
           ),
         ),

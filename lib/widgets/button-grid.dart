@@ -1,12 +1,18 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class GridItem {
   late String menoyType;
   late Color color;
   late IconData icon;
-  GridItem({required this.menoyType, required this.color, required this.icon});
+  late String id;
+  GridItem(
+      {required this.menoyType,
+      required this.color,
+      required this.icon,
+      required this.id});
 }
 
 class ButtonGrid extends StatefulWidget {
@@ -23,6 +29,12 @@ class ButtonGrid extends StatefulWidget {
 
 class _ButtonGridState extends State<ButtonGrid> {
   String menoyType = "餐饮";
+
+  @override
+  void didUpdateWidget(covariant ButtonGrid oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {

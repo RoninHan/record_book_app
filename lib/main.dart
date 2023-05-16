@@ -79,7 +79,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    debugPrint("1");
     // TODO: implement initState
     super.initState();
   }

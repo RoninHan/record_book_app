@@ -25,6 +25,8 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('登陆'),
+        backgroundColor: Colors.white,
+        titleTextStyle: const TextStyle(color: Colors.black),
       ),
       body: Padding(
         padding: EdgeInsets.all(13.0),

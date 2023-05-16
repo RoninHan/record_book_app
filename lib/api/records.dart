@@ -3,11 +3,12 @@ import 'package:record_book_app/utils/request.dart';
 import '../utils/token.dart';
 
 class RecordApi {
-  Future<List<Map<String, dynamic>>> getRecord() async {
+  Future<List<dynamic>> getTodayRecords() async {
     try {
-      final result = await HttpService.post("/v1/record/list", {});
-      final List<Map<String, dynamic>> records = result["data"];
-      final String token = result["data"]["token"];
+      final result = await HttpService.post("/v1/record/list-today", {});
+      final Map<String, dynamic> data = result["data"];
+      final List<dynamic> records = data["data"];
+      final String token = data["token"];
 
       saveToken(token);
       return records;
@@ -16,9 +17,9 @@ class RecordApi {
     }
   }
 
-  Future<String> createRecord() async {
+  Future<String> createRecord(Map<String, dynamic> payload) async {
     try {
-      final result = await HttpService.post("/v1/record/list", {});
+      final result = await HttpService.post("/v1/record/create", payload);
 
       final String token = result["data"]["token"];
 

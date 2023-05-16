@@ -41,7 +41,6 @@ class _MyPageState extends State<MyPage> {
                         'https://picsum.photos/seed/picsum/200/300'),
                   ),
                   onTap: () {
-                    debugPrint(userStore.user.toString());
                     // removeToken();
                     Navigator.pushNamed(context, "/");
                   },
