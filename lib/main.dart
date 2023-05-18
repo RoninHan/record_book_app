@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     ReportPage(),
-    AssetPage(),
+    // AssetPage(),
     MyPage()
   ];
 
@@ -99,10 +99,10 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.area_chart),
             label: '报表',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.monetization_on_outlined),
-            label: '资产',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.monetization_on_outlined),
+          //   label: '资产',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_box),
             label: '我的',

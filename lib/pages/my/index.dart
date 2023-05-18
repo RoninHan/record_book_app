@@ -75,24 +75,24 @@ class _MyPageState extends State<MyPage> {
               ],
             ),
           ),
-          const SizedBox(height: 20.0),
-          ListTile(
-            leading: const Icon(Icons.account_balance_wallet),
-            title: const Text('我的账户'),
-            trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              // Navigate to account page
-            },
-          ),
-          const Divider(),
-          ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('设置'),
-            trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              // Navigate to settings page
-            },
-          ),
+          // const SizedBox(height: 20.0),
+          // ListTile(
+          //   leading: const Icon(Icons.account_balance_wallet),
+          //   title: const Text('我的账户'),
+          //   trailing: const Icon(Icons.arrow_forward_ios),
+          //   onTap: () {
+          //     // Navigate to account page
+          //   },
+          // ),
+          // const Divider(),
+          // ListTile(
+          //   leading: const Icon(Icons.settings),
+          //   title: const Text('设置'),
+          //   trailing: const Icon(Icons.arrow_forward_ios),
+          //   onTap: () {
+          //     // Navigate to settings page
+          //   },
+          // ),
           const Divider(),
           ListTile(
             leading: const Icon(Icons.logout),

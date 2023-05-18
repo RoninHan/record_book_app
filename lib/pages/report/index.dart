@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
+import 'bar-chart.dart';
+import 'pie-chart.dart';
+
 class ReportPage extends StatefulWidget {
   const ReportPage({super.key});
 
@@ -28,19 +31,19 @@ class _ReportPageState extends State<ReportPage> {
                   icon: Icon(Icons.arrow_back_ios),
                   onPressed: () {
                     setState(() {
-                      _selectedDate = _selectedDate.subtract(Duration(days: 1));
+                      _selectedDate = DateTime(_selectedDate.year + 1);
                     });
                   },
                 ),
                 Text(
-                  "${_selectedDate.year}年${_selectedDate.month}月${_selectedDate.day}日",
+                  "${_selectedDate.year}年",
                   style: TextStyle(fontSize: 16),
                 ),
                 IconButton(
                   icon: Icon(Icons.arrow_forward_ios),
                   onPressed: () {
                     setState(() {
-                      _selectedDate = _selectedDate.add(Duration(days: 1));
+                      _selectedDate = DateTime(_selectedDate.year + 1);
                     });
                   },
                 ),
@@ -50,11 +53,7 @@ class _ReportPageState extends State<ReportPage> {
           Expanded(
             child: SingleChildScrollView(
               child: Column(
-                children: [
-                  _buildPieChart(),
-                  SizedBox(height: 20),
-                  _buildLineChart(),
-                ],
+                children: [BarChartWidget(), PieChartWidget()],
               ),
             ),
           ),

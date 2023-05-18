@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void onGoMakeNote(context) {
-    Navigator.pushNamed(context, "/make-note");
+    Navigator.pushNamed(context, "/make-note").then((value) => getData());
   }
 
   getData() {
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    '今日',
+                    '今月',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,

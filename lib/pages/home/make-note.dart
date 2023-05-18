@@ -40,7 +40,7 @@ class _MakeNoteState extends State<MakeNote>
           leading: Builder(builder: (context) {
             return IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pop(context, true);
                 },
                 icon: const Icon(
                   Icons.chevron_left_sharp,

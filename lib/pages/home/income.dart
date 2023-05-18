@@ -56,10 +56,10 @@ class _IncomeState extends State<Income> {
     super.initState();
   }
 
-  void onSubmit(val) {
+  void onSubmit(context, val) {
     Map<String, dynamic> map = new Map<String, dynamic>();
     map["Amount"] = val;
-    map["CategoryId"] = categoryId;
+    map["category_id"] = categoryId;
     map["Description"] = menoyType;
     RecordApi()
         .createRecord(map)
@@ -89,7 +89,7 @@ class _IncomeState extends State<Income> {
                   border: InputBorder.none,
                   hintText: "0.00"),
               onFieldSubmitted: (value) {
-                onSubmit(value);
+                onSubmit(context, value);
               },
             ),
           ),
