@@ -24,12 +24,12 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('登陆'),
+        title: const Text('登陆'),
         backgroundColor: Colors.white,
         titleTextStyle: const TextStyle(color: Colors.black),
       ),
       body: Padding(
-        padding: EdgeInsets.all(13.0),
+        padding: const EdgeInsets.all(13.0),
         child: Form(
           key: _formKey,
           child: Column(
@@ -64,29 +64,35 @@ class _LoginPageState extends State<LoginPage> {
                   _password = value!;
                 },
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    // TODO: Perform login operation
-                    final payload = {
-                      "email": _email,
-                      "password": Utils.generateMD5(_password)
-                    };
+              const SizedBox(height: 20),
+              Padding(
+                  padding: const EdgeInsets.only(top: 25),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints.expand(height: 50.0),
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+                          // TODO: Perform login operation
+                          final payload = {
+                            "email": _email,
+                            "password": Utils.generateMD5(_password)
+                          };
 
-                    Map<String, dynamic> result =
-                        await HttpService.post("/v1/user/login", payload);
-                    final String token = result["data"]["token"];
-                    final Map<String, dynamic> user = result["data"]["user"];
+                          Map<String, dynamic> result =
+                              await HttpService.post("/v1/user/login", payload);
+                          final String token = result["data"]["token"];
+                          final Map<String, dynamic> user =
+                              result["data"]["user"];
 
-                    saveToken(token);
-                    userStore.setUser(user);
-                    Navigator.pushNamed(context, "/home");
-                  }
-                },
-                child: Text('登陆'),
-              ),
+                          saveToken(token);
+                          userStore.setUser(user);
+                          Navigator.pushNamed(context, "/home");
+                        }
+                      },
+                      child: const Text('登陆'),
+                    ),
+                  ))
             ],
           ),
         ),

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           future: loadToken(),
           builder: (context, snapshot) {
             // 检查获取 token 的结果
-            final hasToken = snapshot.hasData && snapshot.data != null;
+            final hasToken = true; //snapshot.hasData && snapshot.data != null;
 
             // 根据用户登录状态返回不同的页面
             if (hasToken) {
